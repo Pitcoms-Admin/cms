@@ -703,12 +703,16 @@ body: |
             </div>
           </div>
           <div class="aside-note">
-            This form opens your email app with your application pre-filled, addressed to <span class="mono">admissions@pitcoms.com</span> — no account or sign-in needed. If your device has no mail app configured, use the "copy application" option that appears after you submit.
+            Submitting sends your application straight to <span class="mono">admissions@pitcoms.com</span> — no email app or account needed. You'll see a confirmation on screen the moment it's delivered.
           </div>
         </div>
 
         <div>
           <form class="register" id="registerForm" novalidate>
+            <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+            <input type="hidden" name="subject" value="New PITCOMS Application">
+            <input type="hidden" name="from_name" value="PITCOMS Academy Website">
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
             <div class="form-row">
               <div class="field" id="field-name">
                 <label for="regName">Full name<span class="req">*</span></label>
@@ -772,15 +776,15 @@ body: |
 
           <div class="success-panel" id="successPanel" role="status" aria-live="polite">
             <div class="success-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
-            <h3>Your application is ready to send.</h3>
-            <p>We opened an email to <span class="mono">admissions@pitcoms.com</span> in a new tab with your details filled in — just hit send. If nothing opened, copy the application below and paste it into a new email.</p>
-            <pre class="preview" id="previewText"></pre>
-            <div class="success-actions">
+            <h3 id="successTitle">Application sent.</h3>
+            <p id="successBody">Your application was delivered to <span class="mono">admissions@pitcoms.com</span>. An admissions advisor will reach out to schedule your placement call.</p>
+            <pre class="preview" id="previewText" style="display:none"></pre>
+            <div class="success-actions" id="successActions" style="display:none">
               <a href="#" id="openMailBtn" class="btn btn-accent" target="_blank" rel="noopener">Open email app</a>
               <button type="button" class="btn btn-outline" id="copyBtn">Copy application</button>
-              <button type="button" class="btn btn-ghost" id="editBtn">Edit &amp; resend</button>
             </div>
-            <p class="copy-hint" id="copyHint">Copies the full application as plain text.</p>
+            <p class="copy-hint" id="copyHint" style="display:none">Copies the full application as plain text.</p>
+            <button type="button" class="btn btn-ghost" id="editBtn">Edit &amp; resend</button>
           </div>
         </div>
       </div>
@@ -892,21 +896,79 @@ body: |
       return lines.join('\n');
     }
 
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      if(!validate()) return;
+    var WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+    var successTitle = document.getElementById('successTitle');
+    var successBody = document.getElementById('successBody');
+    var successActions = document.getElementById('successActions');
 
-      var body = buildApplication();
-      var subject = 'PITCOMS Application — ' + form.name.value.trim();
-      var mailto = 'mailto:' + ADMISSIONS_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-      previewText.textContent = 'To: ' + ADMISSIONS_EMAIL + '\nSubject: ' + subject + '\n\n' + body;
-      openMailBtn.setAttribute('href', mailto);
+    function showSuccess(delivered){
       form.classList.add('hide');
       successPanel.classList.add('show');
       successPanel.scrollIntoView({behavior:'smooth', block:'start'});
 
-      try{ openMailBtn.click(); }catch(err){}
+      if(delivered){
+        successTitle.textContent = 'Application sent.';
+        successBody.innerHTML = 'Your application was delivered to <span class="mono">' + ADMISSIONS_EMAIL + '</span>. An admissions advisor will reach out to schedule your placement call.';
+        successActions.style.display = 'none';
+        previewText.style.display = 'none';
+        copyHint.style.display = 'none';
+      } else {
+        var body = buildApplication();
+        var subject = 'PITCOMS Application — ' + form.name.value.trim();
+        var mailto = 'mailto:' + ADMISSIONS_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+        successTitle.textContent = "We couldn't confirm delivery — here's a backup.";
+        successBody.innerHTML = 'Something went wrong reaching our server. We opened an email to <span class="mono">' + ADMISSIONS_EMAIL + '</span> in a new tab with your details filled in — just hit send. If nothing opened, copy the application below and paste it into a new email.';
+        previewText.textContent = 'To: ' + ADMISSIONS_EMAIL + '\nSubject: ' + subject + '\n\n' + body;
+        openMailBtn.setAttribute('href', mailto);
+        successActions.style.display = '';
+        previewText.style.display = '';
+        copyHint.style.display = '';
+        try{ openMailBtn.click(); }catch(err){}
+      }
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!validate()) return;
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      var payload = {
+        access_key: form.access_key.value,
+        subject: form.subject.value,
+        from_name: form.from_name.value,
+        botcheck: form.botcheck.checked ? 'spam' : '',
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim() || '—',
+        program: form.program.value,
+        cohort: form.cohort.value,
+        background: form.background.value,
+        notes: form.notes.value.trim() || '—'
+      };
+
+      fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify(payload)
+      })
+      .then(function(res){
+        return res.json().then(function(data){ return {ok: res.ok && data && data.success, data: data}; });
+      })
+      .then(function(result){
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+        showSuccess(!!result.ok);
+      })
+      .catch(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+        showSuccess(false);
+      });
     });
 
     copyBtn.addEventListener('click', function(){

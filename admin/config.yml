@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: Pitcoms-Admin/cms
+  branch: main
+  base_url: https://REPLACE-WITH-OAUTH-WORKER-URL
+  auth_endpoint: auth
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - file: "content/homepage.yml"
+        label: "Homepage"
+        name: "homepage"
+        description: >
+          The entire pitcoms.com homepage as raw HTML. Editing this
+          replaces the page content exactly — pushing a change here
+          rebuilds and redeploys the live site automatically.
+        fields:
+          - label: "Page HTML"
+            name: "body"
+            widget: "code"
+            default_language: "html"
+            allow_language_selection: false
+            output_code_only: true

@@ -28,3 +28,5 @@ python3 -c "import yaml,pathlib; print(yaml.safe_load(pathlib.Path('content/home
 ```
 
 then open `preview.html` in a browser.
+
+<!-- Pages: source=GitHub Actions, enabled 2026-09-07 -->

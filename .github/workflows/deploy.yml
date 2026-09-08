@@ -60,6 +60,19 @@ jobs:
         with:
           path: dist
 
+      # Ships the same built dist/ to the divine-sun-ad3f Worker, which is
+      # what pitcoms.com and www.pitcoms.com actually resolve to (the Worker
+      # owns those custom domains at the Cloudflare layer). Without this
+      # step, GitHub Pages below keeps building successfully but nothing
+      # visitors see ever changes. Requires the CLOUDFLARE_API_TOKEN and
+      # CLOUDFLARE_ACCOUNT_ID repo secrets — see README for setup.
+      - name: Deploy Worker to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

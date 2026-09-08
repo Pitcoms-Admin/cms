@@ -1,0 +1,15 @@
+name = "divine-sun-ad3f"
+main = "index.js"
+compatibility_date = "2026-09-06"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pitcoms-admissions"
+database_id = "1fa4b880-db60-480b-9535-2107c3d6df1b"
+
+[observability]
+enabled = true

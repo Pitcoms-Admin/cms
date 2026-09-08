@@ -32,6 +32,7 @@ jobs:
       - name: Build index.html from CMS content
         run: |
           python3 - <<'PYEOF'
+          import shutil
           import yaml
           from pathlib import Path
 
@@ -44,6 +45,14 @@ jobs:
           (dist / "CNAME").write_text("pitcoms.com\n")
           (dist / ".nojekyll").write_text("")
           print(f"Wrote dist/index.html ({len(html)} bytes)")
+
+          # Carry the Decap CMS admin app (and any uploaded media) straight
+          # through to the deployed site so /admin/ isn't a 404.
+          for folder in ("admin", "assets"):
+              src = Path(folder)
+              if src.is_dir():
+                  shutil.copytree(src, dist / folder, dirs_exist_ok=True)
+                  print(f"Copied {folder}/ -> dist/{folder}/")
           PYEOF
 
       - name: Upload artifact

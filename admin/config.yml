@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Pitcoms-Admin/cms
   branch: main
-  base_url: https://REPLACE-WITH-OAUTH-WORKER-URL
+  base_url: https://pitcoms-cms-auth.enorkia.workers.dev
   auth_endpoint: auth
 
 media_folder: "assets/uploads"

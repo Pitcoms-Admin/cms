@@ -825,6 +825,13 @@ body: |
             <a href="mailto:admissions@pitcoms.com">admissions@pitcoms.com</a>
             <a href="#register">Book a placement call</a>
           </div>
+          <div class="foot-col">
+            <h4>Contact</h4>
+            <a href="https://wa.me/420777020504" target="_blank" rel="noopener">Enock Anderson — WhatsApp</a>
+            <a href="tel:+420777020504">Enock Anderson — Call</a>
+            <a href="https://wa.me/420733112450" target="_blank" rel="noopener">Vernesa — WhatsApp</a>
+            <a href="tel:+420733112450">Vernesa — Call</a>
+          </div>
         </div>
       </div>
       <div class="foot-bottom">

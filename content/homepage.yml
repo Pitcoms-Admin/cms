@@ -1,13 +1,22 @@
-body: |
+body: >
   <!DOCTYPE html>
+
   <html lang="en">
+
   <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta name="description" content="PITCOMS Academy — hands-on IT, networking, cybersecurity, and ICS/OT training with real lab gear, industry certifications, and job placement support.">
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖧</text></svg>">
+
   <title>PITCOMS Academy</title>
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
   <style>
     :root{
       --bg:#F4F6FA;
@@ -392,8 +401,11 @@ body: |
     .foot-col a:hover{color:var(--accent);}
     .foot-bottom{margin-top:40px; padding-top:20px; border-top:1px solid var(--border); font-size:12.5px; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
   </style>
+
   </head>
+
   <body>
+
 
   <header class="site">
     <div class="wrap nav-row">
@@ -420,6 +432,7 @@ body: |
       </nav>
     </div>
   </header>
+
 
   <main>
     <section class="hero" id="home">
@@ -791,6 +804,7 @@ body: |
     </section>
   </main>
 
+
   <footer class="site" id="contact">
     <div class="wrap">
       <div class="foot-grid">
@@ -807,7 +821,7 @@ body: |
           <div class="foot-col">
             <h4>Programs</h4>
             <a href="#programs">IT Support &amp; Help Desk</a>
-            <a href="#programs">Network Administration</a>
+            <a href="#programs">Network Administration (CCNA)</a>
             <a href="#programs">Cybersecurity &amp; SOC</a>
             <a href="#programs">Cloud &amp; Systems Admin</a>
             <a href="#programs">ICS/OT Security</a>
@@ -841,7 +855,9 @@ body: |
     </div>
   </footer>
 
+
   <script>
+
   (function(){
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -998,7 +1014,9 @@ body: |
       form.scrollIntoView({behavior:'smooth', block:'start'});
     });
   })();
-  </script>
-  </body>
-  </html>
 
+  </script>
+
+  </body>
+
+  </html>

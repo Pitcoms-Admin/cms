@@ -790,7 +790,7 @@ body: >
           <div class="success-panel" id="successPanel" role="status" aria-live="polite">
             <div class="success-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
             <h3 id="successTitle">Application sent.</h3>
-            <p id="successBody">Your application was delivered to <span class="mono">admissions@pitcoms.com</span>. An admissions advisor will reach out to schedule your placement call.</p>
+            <p id="successBody">Your application was delivered to <span class="mono">admissions@pitcoms.com</span>. An admissions advisor will reach out via email or call to provide you further information.</p>
             <pre class="preview" id="previewText" style="display:none"></pre>
             <div class="success-actions" id="successActions" style="display:none">
               <a href="#" id="openMailBtn" class="btn btn-accent" target="_blank" rel="noopener">Open email app</a>

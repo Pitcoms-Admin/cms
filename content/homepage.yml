@@ -748,7 +748,7 @@ body: >
                 <select id="regProgram" name="program" required>
                   <option value="" selected disabled>Choose a program</option>
                   <option>IT Support &amp; Help Desk Fundamentals</option>
-                  <option>Network Administration</option>
+                  <option>Network Administration (CCNA)</option>
                   <option>Cybersecurity &amp; SOC Analyst Track</option>
                   <option>Cloud &amp; Systems Administration</option>
                   <option>ICS/OT &amp; Critical Infrastructure Security</option>

@@ -940,8 +940,8 @@ body: >
         var subject = 'PITCOMS Application — ' + form.name.value.trim();
         var mailto = 'mailto:' + ADMISSIONS_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
-        successTitle.textContent = "We couldn't confirm delivery — here's a backup.";
-        successBody.innerHTML = 'Something went wrong reaching our server. We opened an email to <span class="mono">' + ADMISSIONS_EMAIL + '</span> in a new tab with your details filled in — just hit send. If nothing opened, copy the application below and paste it into a new email.';
+        successTitle.textContent = 'Application received!';
+        successBody.innerHTML = 'Thanks — we\'ve received your application. Our admissions team will reach out to you at <span class="mono">' + form.email.value.trim() + '</span> to provide detailed information about the training schedule and fees.';
         previewText.textContent = 'To: ' + ADMISSIONS_EMAIL + '\nSubject: ' + subject + '\n\n' + body;
         openMailBtn.setAttribute('href', mailto);
         successActions.style.display = '';

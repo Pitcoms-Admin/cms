@@ -675,13 +675,13 @@ body: >
         <div class="people-grid">
           <div class="person-card">
             <div class="avatar">RC</div>
-            <h3>Renee Castillo</h3>
+            <h3>Enock Anderson</h3>
             <div class="person-role">Network Administration Lead</div>
-            <p class="bio">14 years in enterprise &amp; ISP routing before teaching. CCNP-certified; built the branch-office labs students configure in week 6.</p>
+            <p class="bio">14 years in enterprise &amp; ISP routing and leads the ICS/OT WIFI and 5G deploment and integration before teaching. CCNP-certified; built the branch-office labs students configure in week 6.</p>
           </div>
           <div class="person-card">
             <div class="avatar">MO</div>
-            <h3>Malik Okafor</h3>
+            <h3>MIchael Nsiah</h3>
             <div class="person-role">Cybersecurity &amp; SOC Lead</div>
             <p class="bio">Former Tier III SOC analyst at a regional MSSP. Runs the incident-response tabletop exercises in the final two weeks of the track.</p>
           </div>
